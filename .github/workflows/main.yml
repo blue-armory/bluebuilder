@@ -23,6 +23,6 @@ jobs:
 
     - name: Build solution
       run: |
-    for sln in Solutions/*.sln; do
-      msbuild "$sln" -property:Configuration=Release
-    done
+        for sln in Solutions/*.sln; do
+          msbuild "$sln" -property:Configuration=Release
+        done
