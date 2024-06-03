@@ -23,7 +23,8 @@ jobs:
 
     - name: Build solution
       run: |
-        for sln in Solutions/*.sln; do
-          msbuild "$sln" -property:Configuration=Release
-        done
-      shell: bash
+        $slns = Get-ChildItem Solutions/*.sln
+        foreach ($sln in $slns) {
+          msbuild $sln.FullName /p:Configuration=Release
+        }
+      shell: powershell
