@@ -21,12 +21,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
     
     - name: Install nuget dependencies
-      run: |
-        $slns = Get-ChildItem Solutions/*.sln
-        foreach ($sln in $slns) {
-          nuget restore $sln.FullName
-        }
-      shell: powershell
+      run: nuget restore Snaffler.sln
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
@@ -34,9 +29,5 @@ jobs:
         dotnet-version: '4.5'
 
     - name: Build solution
-      run: |
-        $slns = Get-ChildItem Solutions/*.sln
-        foreach ($sln in $slns) {
-          msbuild $sln.FullName /p:Configuration=Release
-        }
-      shell: powershell
+      run: msbuild Snaffler.sln /p:Configuration=Release
+
