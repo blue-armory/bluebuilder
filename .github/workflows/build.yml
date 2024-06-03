@@ -1,0 +1,22 @@
+name: Build .NET Solution
+
+on:
+  push:
+    paths:
+      - 'Solutions/**'
+  pull_request:
+    paths:
+      - 'Solutions/**'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Build solution
+      run: msbuild Solutions/*.sln /p:Configuration=Release
