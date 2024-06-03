@@ -1,4 +1,4 @@
-name: Build .NET Solution
+name: Build Snaffler
 
 on:
 
@@ -21,7 +21,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
     
     - name: Install nuget dependencies
-      run: nuget restore Snaffler.sln
+      run: nuget restore Solutions/Snaffler.sln
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
@@ -29,5 +29,5 @@ jobs:
         dotnet-version: '4.5'
 
     - name: Build solution
-      run: msbuild Snaffler.sln /p:Configuration=Release
+      run: msbuild Solutions/Snaffler.sln /p:Configuration=Release
 
