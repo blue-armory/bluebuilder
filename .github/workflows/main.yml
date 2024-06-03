@@ -26,3 +26,4 @@ jobs:
         for sln in Solutions/*.sln; do
           msbuild "$sln" -property:Configuration=Release
         done
+      shell: bash
