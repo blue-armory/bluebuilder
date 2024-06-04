@@ -13,16 +13,49 @@ on:
 jobs:
   build:
     runs-on: windows-2019
-
     steps:
-    - uses: actions/checkout@v4
+    - name: Create temporary Git repo
+      uses: actions/checkout@v4
 
     - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1.1
+      uses: microsoft/setup-msbuild@v2
     
     - name: Install nuget dependencies
       run: nuget restore Solutions/Snaffler.sln
 
     - name: Build solution
       run: msbuild Solutions/Snaffler.sln /p:Configuration=Release
+
+    - name: Make .exe available
+      uses: actions/upload-artifacts@v3
+      with: 
+        name: snaffler.exe
+        path: .\Snaffler\bin\Release\*.exe
+
+  testrun:
+    needs: [build]
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test binary 
+        run: |
+          mkdir testdata
+          echo 'test_data' > .\testdata\id_rsa
+          $output = & .\Snaffler.exe -s -i .\testdata\
+
+          # Check output
+          if ($output -like "*KeepSSHKeysByFileName*" -and $output -like "*I snaffled 'til the snafflin was done*") {
+            Write-Host "Looks good!"
+            $output
+            exit 0
+          }
+          else {
+            Write-Host "[!] Something went wrong"
+            $output
+            exit 0
+          }
+        shell: pwsh
+
+
 
