@@ -32,7 +32,7 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Download artifact
-      - uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3
         with:
           name: snaffler.exe
           path: downloaded-artifacts
