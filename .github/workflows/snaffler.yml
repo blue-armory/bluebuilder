@@ -1,13 +1,7 @@
 name: Build Snaffler
 
 on:
-
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
 
 
 jobs:
@@ -20,17 +14,17 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
     
-    - name: Install nuget dependencies
+    - name: Install dependencies
       run: nuget restore Solutions/Snaffler.sln
 
     - name: Build solution
-      run: msbuild Solutions/Snaffler.sln /p:Configuration=Release
+      run: msbuild Solutions/Snaffler.sln -p:Configuration=Release
 
     - name: Make .exe available
       uses: actions/upload-artifact@v4
       with: 
         name: snaffler.exe
-        path: .\Snaffler\bin\Release\*.exe
+        path: .\Snaffler\bin\Release\Snaffler.exe
 
   testrun:
     needs: [build]
