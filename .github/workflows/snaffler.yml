@@ -24,7 +24,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with: 
         name: snaffler.exe
-        path: Solutions/Snaffler/bin/Release/Snaffler.exe
+        path: Solutions\Snaffler\bin\Release\Snaffler.exe
         if-no-files-found: error
 
   testrun:
