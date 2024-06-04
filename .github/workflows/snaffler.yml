@@ -35,7 +35,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: snaffler.exe
-          path: downloaded-artifacts
+          path: Solutions\Snaffler\bin\Release\Snaffler.exe
 
       - name: Test binary 
         run: |
@@ -45,7 +45,7 @@ jobs:
 
           # Check output
           if ($output -like "*KeepSSHKeysByFileName*" -and $output -like "*I snaffled 'til the snafflin was done*") {
-            Write-Host "Looks good!"
+            Write-Host "[+] Looks good!"
             $output
             exit 0
           }
