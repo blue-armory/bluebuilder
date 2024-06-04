@@ -24,14 +24,18 @@ jobs:
       uses: actions/upload-artifact@v4
       with: 
         name: snaffler.exe
-        path: Snaffler\bin\Release\Snaffler.exe
+        path: Solutions/Snaffler/bin/Release/Snaffler.exe
         if-no-files-found: error
 
   testrun:
     needs: [build]
     runs-on: windows-2019
     steps:
-      - uses: actions/checkout@v4
+      - name: Download artifact
+      - uses: actions/download-artifact@v3
+        with:
+          name: snaffler.exe
+          path: downloaded-artifacts
 
       - name: Test binary 
         run: |
@@ -51,6 +55,3 @@ jobs:
             exit 0
           }
         shell: pwsh
-
-
-
