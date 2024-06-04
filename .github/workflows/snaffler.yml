@@ -35,7 +35,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: snaffler.exe
-          path: Solutions\Snaffler\bin\Release\Snaffler.exe
+          path: downloaded-artifacts
 
       - name: Test binary 
         run: |
